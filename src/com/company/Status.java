@@ -28,4 +28,8 @@ public enum Status {
         }
     }
 
+    public boolean isCell(){
+        return this == LIVE || this == DIED;
+    }
+
 }
