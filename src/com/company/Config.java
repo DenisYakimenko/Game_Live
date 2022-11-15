@@ -17,7 +17,7 @@ public class Config {
             case NONE: return Color.BLACK;
             case BORN: return Color.GRAY;
             case LIVE: return Color.WHITE;
-            case DIED: return Color.BLUE;
+            case DIED: return Color.GRAY;
         }
 
     }
