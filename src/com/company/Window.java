@@ -1,6 +1,9 @@
 package com.company;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.ObjectInputFilter;
 
 public class Window implements Runnable{
@@ -12,6 +15,7 @@ public class Window implements Runnable{
     public void run(){
         initFrame();
         initBoxes();
+        initTimer();
 
     }
 
@@ -32,7 +36,7 @@ public class Window implements Runnable{
         for (int x = 0; x<Config.WIDTH; x++)
             for (int y = 0; y< Config.HEIGHT; y++)
             {
-                Cell cell = new Cell();
+               // Cell cell = new Cell();
                 boxes [x][y] = new Box(x,y);
                 frame.add(boxes[x][y]);
             }
@@ -46,7 +50,37 @@ public class Window implements Runnable{
                                     [(x+sx+Config.WIDTH)%Config.WIDTH]
                                     [(y+sy+Config.HEIGHT)%Config.HEIGHT].cell);
 
-        for (int x = 10; x<15; x++)
+        for (int x = 10; x<15; x++) {
             boxes[x][10].cell.status = Status.LIVE;
+            boxes[x][10].setColor();
+        }
+
     }
-}
+
+    private void initTimer(){
+        TimerListener tl = new TimerListener();
+        Timer timer = new Timer(Config.SLEEPMS, tl);
+        timer.start();
+    }
+
+
+    private class TimerListener implements ActionListener {
+        boolean flop = false;
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            flop = !flop;
+            for (int x = 0; x<Config.WIDTH; x++)
+                for (int y = 0; y< Config.HEIGHT; y++){
+                    if(flop)
+                    boxes[x][y].step1();
+                    else
+                    boxes[x][y].step2();
+                }
+        }
+
+
+        }
+    }
+
