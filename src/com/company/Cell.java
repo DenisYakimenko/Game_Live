@@ -34,4 +34,9 @@ public class Cell {
                 count++;
             return  count;
     }
+
+    void turn(){
+        for (Cell cell : near)
+            cell.status = cell.status.isCell() ? Status.NONE : Status.LIVE;
+    }
 }
